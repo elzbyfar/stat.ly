@@ -48,25 +48,25 @@ To verify pip installation, type pip --version (Windows) or pip3 --version (macO
 
 1. Clone the Monorepo
 
-```git clone <REPOSITORY_URL>```
+- ```git clone <REPOSITORY_URL>```
 
 ## Setup API
 
 1. Navigate to the App Directory
 
-```cd stat.ly/api```
+- ```cd stat.ly/api```
 
 2. Create a Virtual Environment (Recommended, but optional)
 
-```python3 -m venv venv``` # On macOS/Linux
+- ```python3 -m venv venv  # On macOS/Linux```
 
-```python -m venv venv``` # On Windows
+- ```python -m venv venv  # On Windows```
 
 3. Activate the Virtual Environment
 
-```source venv/bin/activate``` # On macOS/Linux
+```source venv/bin/activate  # On macOS/Linux```
 
-```.\venv\Scripts\activate``` # On Windows
+```.\venv\Scripts\activate  # On Windows```
 
 4. Set the Flask app and environment variables:
 
