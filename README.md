@@ -50,7 +50,7 @@ To verify pip installation, type pip --version (Windows) or pip3 --version (macO
 
 - `git clone <REPOSITORY_URL>`
 
-## Start API
+### Start API
 
 1. Navigate to the App Directory
 
@@ -82,7 +82,7 @@ OR
 
 - `flask run`
 
-## Start Frontend
+### Start Frontend
 
 1. Navigate to the Frontend directory
 
