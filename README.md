@@ -58,19 +58,15 @@ To verify pip installation, type pip --version (Windows) or pip3 --version (macO
 
 2. Create a Virtual Environment (Recommended, but optional)
 
-- On macOS/Linux
-```python3 -m venv venv```
+```python3 -m venv venv``` # On macOS/Linux
 
-- On Windows
-```python -m venv venv```
+```python -m venv venv``` # On Windows
 
 3. Activate the Virtual Environment
 
-- On macOS/Linux
-```source venv/bin/activate```
+```source venv/bin/activate``` # On macOS/Linux
 
-- On Windows
-```.\venv\Scripts\activate```
+```.\venv\Scripts\activate``` # On Windows
 
 4. Set the Flask app and environment variables:
 
