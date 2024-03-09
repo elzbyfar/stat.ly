@@ -65,7 +65,7 @@ To verify pip installation, type pip --version (Windows) or pip3 --version (macO
    `.\venv\Scripts\activate       # On Windows`
 
 4. Set the Flask app and environment variables:
-   `export FLASK_APP=app.py        # On macOS/Linux`
+   ```export FLASK_APP=app.py        # On macOS/Linux```
    `export FLASK_ENV=development   # On macOS/Linux`
    OR
    `set FLASK_ENV=app.py           # On macOS/Linux`
