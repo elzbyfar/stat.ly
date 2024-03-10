@@ -6,8 +6,10 @@ type AppContextType = {
   setSearchInput: (searchInput: string) => void;
   searchResults: Player[];
   setSearchResults: (searchResults: Player[]) => void;
-  selectedPlayers: SelectOption[];
-  setSelectedPlayers: (selectedPlayers: SelectOption[]) => void;
+  playerPool: { [key: number]: Player };
+  setPlayerPool: (playerPool: { [key: number]: Player }) => void;
+  gameLog: { [key: string]: any };
+  setGameLog: (gameLog: { [key: string]: any }) => void;
 };
 
 const AppContext = createContext<AppContextType>({
@@ -15,8 +17,10 @@ const AppContext = createContext<AppContextType>({
   setSearchInput: () => {},
   searchResults: [],
   setSearchResults: () => {},
-  selectedPlayers: [],
-  setSelectedPlayers: () => {},
+  playerPool: {},
+  setPlayerPool: () => {},
+  gameLog: {},
+  setGameLog: () => {},
 });
 
 export default AppContext;

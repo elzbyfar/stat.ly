@@ -1,10 +1,11 @@
-import getUrlWithQuery from '../utils/getUrlWithQuery';
+import getUrlWithParams from '../utils/getUrlWithParams';
+import { GameLogParams } from './types';
 
 export const config = {
   api: {
     bodyParser: false,
-  }
-}
+  },
+};
 
 const headers = {
   method: 'GET',
@@ -15,10 +16,8 @@ const headers = {
 export async function fetchPlayers(query: string) {
   try {
     const response = await fetch(
-      getUrlWithQuery('/search-players', { query }),
-      {
-        headers,
-      },
+      getUrlWithParams('/search-players', { query }),
+      { headers },
     );
 
     if (!response.ok) throw new Error('Failed to fetch players');
@@ -33,10 +32,8 @@ export async function fetchPlayers(query: string) {
 export async function fetchCareer(playerId: string) {
   try {
     const response = await fetch(
-      getUrlWithQuery('/get-career', { player_id: playerId }),
-      {
-        headers,
-      },
+      getUrlWithParams('/get-career', { player_id: playerId }),
+      { headers },
     );
 
     if (!response.ok) throw new Error("Failed to fetch player's career");
@@ -51,7 +48,7 @@ export async function fetchCareer(playerId: string) {
 export async function comparePlayers(playerIds: number[]) {
   try {
     const response = await fetch(
-      getUrlWithQuery('/compare-players', { player_ids: playerIds.join(',') }),
+      getUrlWithParams('/compare-players', { player_ids: playerIds.join(',') }),
       {
         headers,
       },
@@ -66,26 +63,11 @@ export async function comparePlayers(playerIds: number[]) {
   }
 }
 
-export async function fetchGameLog(
-  playerId: string,
-  season: string = '',
-  seasonType: string = '',
-  dateTo?: string,
-  dateFrom?: string,
-) {
+export async function fetchGameLog(params: GameLogParams) {
   try {
-    const response = await fetch(
-      getUrlWithQuery('/get-game-log', {
-        player_id: playerId,
-        season_type: seasonType,
-        season,
-        date_to: dateTo,
-        date_from: dateFrom,
-      }),
-      {
-        headers,
-      },
-    );
+    const response = await fetch(getUrlWithParams('/get-game-log', params), {
+      headers,
+    });
 
     if (!response.ok) throw new Error("Failed to fetch player's game log");
 
@@ -102,10 +84,8 @@ export async function fetchGameLog(
 export async function fetchCommonPlayerInfo(playerId: string) {
   try {
     const response = await fetch(
-      getUrlWithQuery('/get-common-player-info', { player_id: playerId }),
-      {
-        headers,
-      },
+      getUrlWithParams('/get-common-player-info', { player_id: playerId }),
+      { headers },
     );
 
     if (!response.ok) throw new Error("Failed to fetch player's common info");
@@ -113,6 +93,9 @@ export async function fetchCommonPlayerInfo(playerId: string) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Something went wrong while fetching player's common info", error);
+    console.error(
+      "Something went wrong while fetching player's common info",
+      error,
+    );
   }
 }

@@ -2,7 +2,7 @@
 
 This is a Full Stack Application to visualize NBA Stats.
 
-The stack includes a Flask App in the backend and a NextJS, TypeScript, TailwindCSS in the frontend.
+The stack includes a Flask App in the backend and a frontend built with NextJS, TypeScript, and TailwindCSS.
 
 ## Prerequisites
 
@@ -96,4 +96,6 @@ OR
 
 - `npm run dev`
 
-## Run the App in Browser
+### Run the App in Browser
+
+1. Go to http://localhost:3000

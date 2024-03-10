@@ -2,12 +2,15 @@
 
 import { useState, ReactNode } from 'react';
 import AppContext from './AppContext';
-import { Player, SelectOption } from '@/app/lib/types';
+import { Player } from '@/app/lib/types';
 
 function AppState({ children }: { children: ReactNode }) {
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Player[]>([]);
-  const [selectedPlayers, setSelectedPlayers] = useState<SelectOption[]>([]);
+  const [playerPool, setPlayerPool] = useState<{
+    [key: number]: Player;
+  }>({});
+  const [gameLog, setGameLog] = useState<{ [key: string]: any }>({});
 
   return (
     <AppContext.Provider
@@ -16,8 +19,10 @@ function AppState({ children }: { children: ReactNode }) {
         setSearchInput,
         searchResults,
         setSearchResults,
-        selectedPlayers,
-        setSelectedPlayers,
+        playerPool,
+        setPlayerPool,
+        gameLog,
+        setGameLog,
       }}
     >
       {children}

@@ -1,16 +1,21 @@
 'use client';
 
-import { useState, useContext, ReactElement } from 'react';
+import { useState, useContext } from 'react';
 import { debounce, sortBy } from 'lodash';
+import { Section } from '@radix-ui/themes';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import Select, {
   components,
-  CSSObjectWithLabel,
-  MultiValue,
   OptionProps,
+  CSSObjectWithLabel,
 } from 'react-select';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { Player, SelectOption } from '@/app/lib/types';
-import { fetchPlayers } from '@/app/lib/api';
+import {
+  Player,
+  SelectOption,
+  SelectOptionProps,
+  CustomComponentsType,
+} from '@/app/lib/types';
+import { fetchGameLog, fetchPlayers } from '@/app/lib/api';
 import AppContext from '@/app/context/AppContext';
 
 export default function TypeAhead() {
@@ -20,10 +25,11 @@ export default function TypeAhead() {
   const {
     searchInput,
     searchResults,
-    selectedPlayers,
+    playerPool,
+    setGameLog,
     setSearchInput,
     setSearchResults,
-    setSelectedPlayers,
+    setPlayerPool,
   } = useContext(AppContext);
 
   const handleSearch = debounce(async (value: string) => {
@@ -40,23 +46,25 @@ export default function TypeAhead() {
     setSearchInput(query);
     const players = await fetchPlayers(query);
     const sorted = sortBy(players, [
-      (player: Player) => !player.is_active,
-      (player: Player) => player.id,
+      (p: Player) => !p.is_active,
+      (p: Player) => p.id,
     ]);
-    setSearchResults(sorted.slice(0, 50));
+    setSearchResults(
+      sorted.filter((p: Player) => !playerPool[p.id]).slice(0, 50),
+    );
     setLoading(false);
   }, 200);
 
-  const handleDisplayOption = (props: OptionProps): ReactElement => {
+  const handleDisplayOption = (props: OptionProps) => {
     const { label } = props;
     const matchStart = label.toLowerCase().indexOf(searchInput.toLowerCase());
     const matchEnd = matchStart + searchInput.length;
     return (
       <components.Option {...props}>
         {label.substring(0, matchStart)}
-        <span className="font-bold">
+        <strong className="font-bold">
           {label.substring(matchStart, matchEnd)}
-        </span>
+        </strong>
         {label.substring(matchEnd)}
       </components.Option>
     );
@@ -69,13 +77,12 @@ export default function TypeAhead() {
     return 'Enter a player name';
   };
 
-  const customComponents = {
-    // DropdownIndicator: () => null,
+  const customComponents: CustomComponentsType = {
+    IndicatorSeparator: () => null,
+    Option: (props: SelectOptionProps) => handleDisplayOption(props),
     DropdownIndicator: () => (
       <MagnifyingGlassIcon className="absolute left-2" width="20" height="20" />
     ),
-    IndicatorSeparator: () => null,
-    Option: (props: OptionProps) => handleDisplayOption(props),
   };
 
   const customStyles = {
@@ -84,32 +91,68 @@ export default function TypeAhead() {
       cursor: 'text',
       marginLeft: '1.5rem',
     }),
+    control: (base: CSSObjectWithLabel) => ({
+      ...base,
+      borderRadius: '1.25rem',
+    }),
   };
 
   const options = searchResults.map((player: Player) => ({
+    ...player,
     label: player.full_name,
     value: String(player.id),
   }));
 
+  const updatePlayerPool = (selection: SelectOption) => {
+    const newSelection = {
+      ...selection,
+      order: Object.keys(playerPool).length + 1,
+    };
+
+    const updatedSelections = {
+      ...playerPool,
+      [selection.value]: newSelection,
+    };
+
+    setPlayerPool(updatedSelections);
+  };
+
+  const updateGameLog = async (selection: SelectOption) => {
+    const year = new Date().getFullYear();
+
+    const gameLog = await fetchGameLog({
+      playerId: selection.value,
+      seasonType: 'Regular Season',
+      season: String(year - 1),
+    });
+
+    setGameLog(gameLog.resultSets[0]);
+  };
+
+  const handleChange = async (selection: SelectOption) => {
+    if (!selection) return;
+    updateGameLog(selection);
+    updatePlayerPool(selection);
+    setValue(null); // clear the input
+  };
+
   return (
-    <Select
-      options={options}
-      styles={customStyles}
-      components={customComponents}
-      onInputChange={handleSearch}
-      isLoading={loading}
-      value={value}
-      isClearable
-      isSearchable
-      placeholder="Search for NBA players"
-      menuIsOpen={searchInput.length > 0}
-      openMenuOnClick={false}
-      noOptionsMessage={() => noOptionsMessage()}
-      onChange={(selection: unknown) => {
-        const updatedSelections = [...selectedPlayers, selection];
-        setSelectedPlayers(updatedSelections as SelectOption[]);
-        setValue(null);
-      }}
-    />
+    <Section size="1" className="mx-auto my-4">
+      <Select
+        instanceId="player-search"
+        options={options}
+        styles={customStyles}
+        components={customComponents}
+        onInputChange={handleSearch}
+        isLoading={loading}
+        value={value}
+        isSearchable
+        placeholder="Search for NBA players"
+        menuIsOpen={searchInput.length > 0}
+        openMenuOnClick={false}
+        noOptionsMessage={() => noOptionsMessage()}
+        onChange={(selection) => handleChange(selection as SelectOption)}
+      />
+    </Section>
   );
 }
