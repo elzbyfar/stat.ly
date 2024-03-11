@@ -16,12 +16,15 @@ import 'chartjs-adapter-luxon';
 import { ActiveDatasets, ChartCtxType } from '@/app/lib/types';
 import { Section, Text } from '@radix-ui/themes';
 import useStyles from '@/app/hooks/useStyles';
+import useRandomColor from '@/app/hooks/useRandomColor';
 
 Chart.register(annotationPlugin);
 
 export default function TimeSeriesChart() {
   const [datasets, setDatasets] = React.useState<ActiveDatasets>({});
   const { playerPool, gameLog } = useContext(AppContext);
+
+  const { color, generateColor } = useRandomColor();
   const chartInstance = useRef<Chart>(null);
   const chartRef = useRef<LegacyRef<HTMLCanvasElement> | undefined>(
     {} as LegacyRef<HTMLCanvasElement>,
@@ -51,13 +54,16 @@ export default function TimeSeriesChart() {
     const player = playerPool[gameLog?.rowSet[0][1]];
 
     if (datasets[player.id]) return;
+
+    generateColor();
+    console.log({ color });
     const updatedDatasets = {
       ...datasets,
       [player.id]: {
         label: player.label,
         data: getGames([...(gameLog?.rowSet || [])]),
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.75)',
+        borderColor: color,
+        backgroundColor: `${color}50`,
         borderWidth: 1,
         pointRadius: 2,
         hoverRadius: 8,
@@ -98,7 +104,7 @@ export default function TimeSeriesChart() {
       } = chartRef.current.getContext('2d');
 
       const initialChartConfig = {
-        type: 'bar',
+        type: 'pie',
         data: {
           datasets: [],
         },
