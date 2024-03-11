@@ -31,9 +31,9 @@ export type ChartCtxType = Chart<
 export type GameLogParams = {
   playerId: string;
   season: string;
-  seasonType: 'Regular Season' | 'Playoffs' | 'Pre Season' | 'All Star';
-  dateTo?: string;
-  dateFrom?: string;
+  seasonTypeAllStar: 'Regular Season' | 'Playoffs' | 'Pre Season' | 'All Star';
+  dateToNullable?: string;
+  dateFromNullable?: string;
 };
 
 export type CustomComponentsType = Partial<

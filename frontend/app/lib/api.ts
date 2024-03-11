@@ -99,3 +99,19 @@ export async function fetchCommonPlayerInfo(playerId: string) {
     );
   }
 }
+
+export async function fetchAllPlayers() {
+  try {
+    const response = await fetch(getUrlWithParams('/get-all-players'), {
+      headers,
+    });
+
+    if (!response.ok) throw new Error('Failed to fetch all players');
+
+    const data = await response.json();
+    console.log({data})
+    return data;
+  } catch (error) {
+    console.error('Something went wrong while fetching all players', error);
+  }
+}

@@ -122,7 +122,7 @@ export default function TypeAhead() {
 
     const gameLog = await fetchGameLog({
       playerId: selection.value,
-      seasonType: 'Regular Season',
+      seasonTypeAllStar: 'Regular Season',
       season: String(year - 1),
     });
 

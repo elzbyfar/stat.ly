@@ -17,6 +17,7 @@ import { ActiveDatasets, ChartCtxType } from '@/app/lib/types';
 import { Section, Text } from '@radix-ui/themes';
 import useStyles from '@/app/hooks/useStyles';
 import useRandomColor from '@/app/hooks/useRandomColor';
+import { fetchAllPlayers } from '@/app/lib/api';
 
 Chart.register(annotationPlugin);
 
@@ -25,6 +26,7 @@ export default function TimeSeriesChart() {
   const { playerPool, gameLog } = useContext(AppContext);
 
   const { color, generateColor } = useRandomColor();
+
   const chartInstance = useRef<Chart>(null);
   const chartRef = useRef<LegacyRef<HTMLCanvasElement> | undefined>(
     {} as LegacyRef<HTMLCanvasElement>,
@@ -48,6 +50,14 @@ export default function TimeSeriesChart() {
     },
     [getLabel],
   );
+
+  useEffect(() => {
+    const waitForPlayers = async () => {
+      const players = await fetchAllPlayers();
+      console.log({ players });
+    };
+    waitForPlayers();
+  }, []);
 
   useEffect(() => {
     if (!gameLog?.rowSet?.length) return;
@@ -90,7 +100,7 @@ export default function TimeSeriesChart() {
       chartInstance.current.data.datasets = Object.values(updatedDatasets);
       chartInstance.current.update();
     }
-  }, [gameLog, getGames, playerPool, datasets]);
+  }, [gameLog, getGames, playerPool, datasets, color, generateColor]);
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -104,7 +114,7 @@ export default function TimeSeriesChart() {
       } = chartRef.current.getContext('2d');
 
       const initialChartConfig = {
-        type: 'pie',
+        type: 'line',
         data: {
           datasets: [],
         },
