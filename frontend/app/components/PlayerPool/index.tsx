@@ -1,10 +1,11 @@
 'use client';
 import Image from 'next/image';
-import { useMemo, useContext } from 'react';
+import { useMemo, useContext, useEffect } from 'react';
 import { Text, Section } from '@radix-ui/themes';
 import AppContext from '@/app/context/AppContext';
 import { Player } from '@/app/lib/types';
 import { sortBy } from 'lodash';
+import { fetchLeagueLeaders } from '@/app/lib/api';
 
 export default function PlayerPool() {
   const { playerPool } = useContext(AppContext);

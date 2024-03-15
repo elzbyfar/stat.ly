@@ -1,4 +1,4 @@
-export default function getUrlWithParams(endpoint: string, params?: { [key: string]: string | string[] | undefined }) {
+export default function getUrlWithParams(endpoint: string, params?: { [key: string]: string | string[] | number | number[] | undefined }) {
   const BASE_URL = "http://127.0.0.1:5000/api";
 
   let url = BASE_URL + endpoint;

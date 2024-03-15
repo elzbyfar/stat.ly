@@ -36,6 +36,13 @@ export type GameLogParams = {
   dateFromNullable?: string;
 };
 
+export type LeagueLeaderParams = {
+  season: string;
+  seasonTypeAllStar: 'Regular Season' | 'Playoffs' | 'All-Star' | "Pre Season" | "Play In";
+  statCategoryAbbreviation: "MIN" | "FGM" | "FGA" | "FG_PCT" | "FG3M" | "FG3A" | "FG3_PCT" | "FTM" | "FTA" | "FT_PCT" | "OREB" | "DREB" | "REB" | "AST" | "STL" | "BLK" | "TOV" | "PF" | "PTS" | "EFF" | "AST_TOV" | "STL_TOV";
+  perMode48: "Totals" | "PerGame" | "Per48";
+};
+
 export type CustomComponentsType = Partial<
   typeof Select<SelectOption, boolean, GroupBase<SelectOption>>
 >;

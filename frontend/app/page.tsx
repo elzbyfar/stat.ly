@@ -1,9 +1,8 @@
-import Image from 'next/image';
 import TypeAhead from './components/TypeAhead';
-import TimeSeriesChart from './components/TimeSeriesChart';
-import { Box, Container, Section } from '@radix-ui/themes';
-import { Component } from 'react';
+import { Container } from '@radix-ui/themes';
 import PlayerPool from './components/PlayerPool';
+import Filters from './components/Filters';
+import TimeSeriesChart from './components/TimeSeriesChart';
 
 export default function Home() {
   return (
@@ -11,6 +10,7 @@ export default function Home() {
       <TypeAhead />
       <PlayerPool />
       <TimeSeriesChart />
+      <Filters />
     </Container>
   );
 }

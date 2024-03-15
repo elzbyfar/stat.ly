@@ -1,5 +1,5 @@
 import getUrlWithParams from '../utils/getUrlWithParams';
-import { GameLogParams } from './types';
+import { GameLogParams, LeagueLeaderParams } from './types';
 
 export const config = {
   api: {
@@ -109,9 +109,23 @@ export async function fetchAllPlayers() {
     if (!response.ok) throw new Error('Failed to fetch all players');
 
     const data = await response.json();
-    console.log({data})
     return data;
   } catch (error) {
     console.error('Something went wrong while fetching all players', error);
+  }
+}
+
+export async function fetchLeagueLeaders(params: LeagueLeaderParams) {
+  try {
+    const response = await fetch(getUrlWithParams('/get-league-leaders', params), {
+      headers,
+    });
+
+    if (!response.ok) throw new Error('Failed to fetch league leaders');
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Something went wrong while fetching league leaders', error);
   }
 }

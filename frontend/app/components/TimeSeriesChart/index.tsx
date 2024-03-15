@@ -54,7 +54,6 @@ export default function TimeSeriesChart() {
   useEffect(() => {
     const waitForPlayers = async () => {
       const players = await fetchAllPlayers();
-      console.log({ players });
     };
     waitForPlayers();
   }, []);
@@ -66,18 +65,17 @@ export default function TimeSeriesChart() {
     if (datasets[player.id]) return;
 
     generateColor();
-    console.log({ color });
     const updatedDatasets = {
       ...datasets,
       [player.id]: {
         label: player.label,
         data: getGames([...(gameLog?.rowSet || [])]),
         borderColor: color,
-        backgroundColor: `${color}50`,
+        backgroundColor: `${color}80`,
         borderWidth: 1,
         pointRadius: 2,
         hoverRadius: 8,
-        tension: 0.2,
+        tension: 0.15,
       },
     };
     setDatasets(updatedDatasets);
