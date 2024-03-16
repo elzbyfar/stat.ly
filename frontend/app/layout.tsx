@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
 import { Theme, Container } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
-import './globals.css';
-import useStyles from './hooks/useStyles';
+import { useStyles } from './hooks';
 import AppState from './context/AppState';
 import Header from './components/Header';
+import '@radix-ui/themes/styles.css';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Statly',
+  title: 'Stat.ly',
   description:
-    'Statly is a modern web application for tracking and visualizing NBA player statistics.',
+    'Stat.ly is a modern web application for tracking and visualizing NBA player statistics.',
 };
 
 export default function RootLayout({

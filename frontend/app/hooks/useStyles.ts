@@ -1,4 +1,4 @@
-function useStyles(styleObject: { [key: string]: string }) {
+export default function useStyles(styleObject: { [key: string]: string }) {
   // this hook takes a style object and returns a function that
   // trades a base string for a string containing tailwind classes for all breakpoints
 
@@ -16,4 +16,3 @@ function useStyles(styleObject: { [key: string]: string }) {
     return classes;
   };
 }
-export default useStyles;

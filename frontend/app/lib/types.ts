@@ -36,11 +36,17 @@ export type GameLogParams = {
   dateFromNullable?: string;
 };
 
+export type SeasonTypeAllStar = 'Regular Season' | 'Playoffs' | 'Pre Season' | 'All Star';
+
+export type StatCategory = "MIN" | "FGM" | "FGA" | "FG_PCT" | "FG3M" | "FG3A" | "FG3_PCT" | "FTM" | "FTA" | "FT_PCT" | "OREB" | "DREB" | "REB" | "AST" | "STL" | "BLK" | "TOV" | "PF" | "PTS" | "EFF" | "AST_TOV" | "STL_TOV";
+
+export type PerMode48 = "Totals" | "PerGame" | "Per48";
+
 export type LeagueLeaderParams = {
   season: string;
-  seasonTypeAllStar: 'Regular Season' | 'Playoffs' | 'All-Star' | "Pre Season" | "Play In";
-  statCategoryAbbreviation: "MIN" | "FGM" | "FGA" | "FG_PCT" | "FG3M" | "FG3A" | "FG3_PCT" | "FTM" | "FTA" | "FT_PCT" | "OREB" | "DREB" | "REB" | "AST" | "STL" | "BLK" | "TOV" | "PF" | "PTS" | "EFF" | "AST_TOV" | "STL_TOV";
-  perMode48: "Totals" | "PerGame" | "Per48";
+  seasonTypeAllStar: SeasonTypeAllStar;
+  statCategoryAbbreviation: StatCategory;
+  perMode48: PerMode48;
 };
 
 export type CustomComponentsType = Partial<

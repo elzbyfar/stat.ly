@@ -1,7 +1,16 @@
 'use client';
 import { SelectOption } from '@/app/lib/types';
-import { Box } from '@radix-ui/themes';
+import { Box, Text } from '@radix-ui/themes';
 import Select, { CSSObjectWithLabel } from 'react-select';
+import Label from './Label';
+
+type CustomSelectProps = {
+  defaultValue: SelectOption;
+  options: SelectOption[];
+  label: string;
+  value: SelectOption;
+  onChange: (value: SelectOption) => void;
+};
 
 export default function CustomSelect({
   defaultValue,
@@ -9,18 +18,10 @@ export default function CustomSelect({
   label,
   value,
   onChange,
-}: {
-  defaultValue: SelectOption;
-  options: SelectOption[];
-  label: string;
-  value: SelectOption;
-  onChange: (value: SelectOption) => void;
-}) {
+}: CustomSelectProps) {
   return (
     <Box>
-      <label htmlFor={label} className="text-xs pl-2">
-        {label}
-      </label>
+      <Label text={label} />
       <Select
         defaultValue={defaultValue}
         options={options}
@@ -30,14 +31,19 @@ export default function CustomSelect({
         styles={{
           control: (base: CSSObjectWithLabel) => ({
             ...base,
-            borderRadius: 35,
-            padding: '0 0.5rem',
+            borderRadius: 8,
+            padding: '0 0.25rem',
             fontSize: 14,
             height: 10,
           }),
           option: (base: CSSObjectWithLabel) => ({
             ...base,
             fontSize: 14,
+          }),
+          menu: (base: CSSObjectWithLabel) => ({
+            ...base,
+            width: '96%',
+            margin: '0.25rem 2%',
           }),
         }}
       />

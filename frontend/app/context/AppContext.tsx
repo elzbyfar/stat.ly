@@ -1,5 +1,11 @@
 import { createContext } from 'react';
-import { Player, SelectOption } from '@/app/lib/types';
+import {
+  PerMode48,
+  Player,
+  SeasonTypeAllStar,
+  SelectOption,
+  StatCategory,
+} from '@/app/lib/types';
 
 type AppContextType = {
   searchInput: string;
@@ -10,6 +16,16 @@ type AppContextType = {
   setPlayerPool: (playerPool: { [key: number]: Player }) => void;
   gameLog: { [key: string]: any };
   setGameLog: (gameLog: { [key: string]: any }) => void;
+  leagueLeaders: { [key: string]: string[] };
+  setLeagueLeaders: (leagueLeaders: { [key: string]: string[] }) => void;
+  season: string;
+  setSeason: (season: string) => void;
+  seasonType: SeasonTypeAllStar;
+  setSeasonType: (seasonType: SeasonTypeAllStar) => void;
+  statCategory: StatCategory;
+  setStatCategory: (statCategory: StatCategory) => void;
+  perMode: PerMode48;
+  setPerMode: (perMode: PerMode48) => void;
 };
 
 const AppContext = createContext<AppContextType>({
@@ -21,6 +37,16 @@ const AppContext = createContext<AppContextType>({
   setPlayerPool: () => {},
   gameLog: {},
   setGameLog: () => {},
+  leagueLeaders: {},
+  setLeagueLeaders: () => {},
+  season: '',
+  setSeason: () => {},
+  seasonType: 'Regular Season',
+  setSeasonType: () => {},
+  statCategory: 'PTS',
+  setStatCategory: () => {},
+  perMode: 'PerGame',
+  setPerMode: () => {},
 });
 
 export default AppContext;

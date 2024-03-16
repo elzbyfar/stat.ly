@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import useStyles from '@/app/hooks/useStyles';
+import { useStyles } from '@/app/hooks';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import icon from '../../assets/icon.png';
 import fontLogo from '../../assets/font-logo.png';

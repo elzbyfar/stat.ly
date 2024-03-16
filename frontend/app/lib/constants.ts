@@ -12,7 +12,7 @@ export const STAT_CATEGORIES: string[] = [
 ]
 
 export const PER_MODES: string[] = [
-  "PerGame", "Per48", "Totals"
+  "Per Game", "Per 48", "Totals"
 ]
 
 export const SEASONS: string[] = []
