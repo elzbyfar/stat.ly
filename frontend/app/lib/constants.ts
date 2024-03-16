@@ -19,7 +19,7 @@ export const SEASONS: string[] = []
 
 let currentYear = DateTime.now().year;
 
-while (currentYear >= 1946) {
+while (currentYear > 1951) {
   SEASONS.push(`${currentYear - 1}-${currentYear.toString().slice(2)}`);
   currentYear -= 1;
 }

@@ -25,23 +25,11 @@ export default function Filters() {
     state: [season, setSeason],
   } = useSelectOptions(SEASONS, formatSeason);
 
-  // const {
-  //   options: seasonTypeOptions,
-  //   defaultValue: defaultSeasonType,
-  //   state: [seasonType, setSeasonType],
-  // } = useSelectOptions(SEASON_TYPES);
-
   const {
     options: statCategoryOptions,
     defaultValue: defaultStatCategory,
     state: [statCategory, setStatCategory],
   } = useSelectOptions(STAT_CATEGORIES);
-
-  // const {
-  //   options: perModeOptions,
-  //   defaultValue: defaultPerMode,
-  //   state: [perMode, setPerMode],
-  // } = useSelectOptions(PER_MODES, formatPerMode);
 
   const { setLeagueLeaders } = useContext(AppContext);
 
